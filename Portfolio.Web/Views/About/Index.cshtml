@@ -1,0 +1,44 @@
+﻿@model About
+@{
+    ViewData["Title"] = "Hakkımda";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<section id="contact" class="contact section">
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <i class="bi bi-geo-alt me-2 text-danger"></i>
+            <strong>Başlık:</strong> @Model.Title
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-telephone me-2 text-success"></i>
+            <strong>Açıklama:</strong> @Model.Description
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Doğum Tarihi:</strong> @Model.BirthDate
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Telefon Numarası:</strong> @Model.PhoneNumber
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Şehir:</strong> @Model.City
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Email:</strong> @Model.Email
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Freelance :</strong> @(Model.IsAvailable ? "Mümkün" : "Mümkün Değil")
+        </li>
+    </ul>
+
+</section>
+
+<a href="/About/UpdateAbout" class="btn btn-outline-primary">Hakkımdaki Bilgileri Güncelle</a>
+
+

@@ -1,0 +1,31 @@
+﻿@model ContactInfo
+@{
+    ViewData["Title"] = "İletişim Bilgilerim";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<section id="contact" class="contact section">
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <i class="bi bi-geo-alt me-2 text-danger"></i>
+            <strong>Adres:</strong> @Model.Address
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-telephone me-2 text-success"></i>
+            <strong>Telefon:</strong> @Model.PhoneNumber
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Email:</strong> @Model.Email
+        </li>
+        <li class="list-group-item">
+            <i class="bi bi-envelope me-2 text-primary"></i>
+            <strong>Harita:</strong> <iframe src="@Model.MapUrl" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </li>
+    </ul>
+
+</section>
+
+<a href="/Contact/UpdateContact" class="btn btn-outline-primary">İletişim Bilgilerini Güncelle</a>
+

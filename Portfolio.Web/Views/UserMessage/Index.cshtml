@@ -1,0 +1,103 @@
+﻿@model List<UserMessage>
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>#</th>
+        <th>Ad Soyad</th>
+        <th>Email</th>
+        <th>Konu</th>
+        <th>Durum</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <td>@item.Name</td>
+            <td>@item.Email </td>
+            <td>@item.Subject </td>
+            <td>@(item.IsRead ? "Okundu" : "Okunmadı")</td>
+            <td>
+                <button class="btn btn-outline-primary btn-sm show-detail"
+                        type="button"
+                        data-id="@item.UserMessageId"
+                        data-message='@Html.Raw(item.MessageBody)'
+                        data-name="@item.Name"
+                        data-email="@item.Email"
+                        data-subject="@item.Subject">
+                    Mesajı Aç
+                </button>
+
+                <button onclick="deleteUserMessage(@item.UserMessageId)" class="btn btn-outline-danger">Sil</button>
+
+                @if (item.IsRead == true)
+                {
+                    <a href="/UserMessage/ChangeMessageToUnread/@item.UserMessageId" class="btn btn-outline-warning">Okunmadı Olarak İşaretle</a>
+                }
+                else
+                {
+                    <a href="/UserMessage/ChangeMessageToRead/@item.UserMessageId" class="btn btn-outline-success">Okundu Olarak İşaretle</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
+<script>
+    document.querySelectorAll('.show-detail').forEach(button => {
+        button.addEventListener('click', function () {
+            const messageId = this.dataset.id;
+            const messageBody = this.dataset.message;
+            const senderName = this.dataset.name;
+            const senderEmail = this.dataset.email;
+            const subject = this.dataset.subject;
+
+            Swal.fire({
+                title: 'Mesaj Detayları',
+                html: `
+                <p><strong>Gönderen:</strong> ${senderName}</p>
+                <p><strong>Email:</strong> ${senderEmail}</p>
+                <p><strong>Konu:</strong> ${subject}</p>
+            <hr>
+            <p><strong>Mesaj:</strong></p>
+            <p>${messageBody}</p>
+        `,
+                confirmButtonText: 'Okudum'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/UserMessage/ChangeMessageToRead/" + messageId;
+                }
+            });
+
+            });
+        });
+
+
+
+    function deleteUserMessage(id)
+    {
+        Swal.fire({
+            title: "Silmek istediğinize emin misiniz?",
+            text: "Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, Sil!",
+            cancelButtonText: "İptal!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/UserMessage/DeleteUserMessage/" + id;
+            }
+        });
+    }
+
+</script>
+

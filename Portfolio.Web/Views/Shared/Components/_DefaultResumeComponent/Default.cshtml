@@ -1,0 +1,24 @@
+﻿
+@*
+   Default Resume Component
+*@
+<section id="resume" class="resume section">
+
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Özgeçmiş</h2>
+        <p>Özgeçmişime göz atabilirsiniz.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            @await Component.InvokeAsync("_DefaultEducationComponent")
+
+            @await Component.InvokeAsync("_DefaultExperienceComponent")
+
+        </div>
+
+    </div>
+
+</section>

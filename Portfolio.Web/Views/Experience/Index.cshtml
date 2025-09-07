@@ -1,0 +1,61 @@
+﻿@model List<Experience>
+@{
+    ViewData["Title"] = "Deneyimlerim";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>#</th>
+        <th>Deneyim Adı</th>
+        <th>Başlangıç Yılı</th>
+        <th>Bitiş Yılı</th>
+        <th>Şirket</th>
+        <th>Şehir</th>
+        <th>Açıklama</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <td>@item.Title</td>
+            <td>@item.StartYear</td>
+            <td>@item.EndYear </td>
+            <td>@item.Company </td>
+            <td>@item.City</td>
+            <td>@item.Description</td>
+            <td>
+                <button onclick="deleteExperience(@item.ExperienceId)" class="btn btn-outline-danger">Sil</button>
+                <a href="/Experience/UpdateExperience/@item.ExperienceId" class="btn btn-outline-info">Güncelle</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="/Experience/CreateExperience" class="btn btn-outline-primary">Yeni Deneyim Oluştur</a>
+
+<script>
+
+    function deleteExperience(id)
+    {
+        Swal.fire({
+            title: "Silmek istediğinize emin misiniz?",
+            text: "Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, Sil!",
+            cancelButtonText: "İptal!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Experience/DeleteExperience/" + id;
+            }
+        });
+    }
+
+</script>
+
